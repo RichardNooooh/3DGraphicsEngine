@@ -1,5 +1,16 @@
 #include <Windows.h>
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
+{
+	switch (msg) 
+	{
+	case WM_CLOSE:
+		PostQuitMessage(420);
+		break;
+	}
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
 //Modified from ChiliTomatoNoodle's C++ DirectX Tutorial: https://www.youtube.com/watch?v=nQTiSLiNyk4
 int CALLBACK WinMain(HINSTANCE hInstance,
 					 HINSTANCE hPrevInstance,
@@ -12,7 +23,7 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	WNDCLASSEX wc = {0};
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
@@ -36,12 +47,12 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	
 	//barebones "message pump"
 	MSG msg;
-	int rc;
+	BOOL rc;
 	while ((rc = GetMessage(&msg, nullptr, 0, 0)) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 
-	return rc;
+	return rc == -1 ? -1 : msg.wParam;
 }
