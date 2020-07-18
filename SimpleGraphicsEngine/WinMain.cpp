@@ -52,6 +52,8 @@ int CALLBACK WinMain(HINSTANCE hInstance,
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		//Draw on the client window for this "frame"
+		//Calculate the fps
 	}
 
 	return rc == -1 ? -1 : msg.wParam;
