@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include "SGWindow.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 {
