@@ -1,4 +1,4 @@
-#include "SGWindow.h"
+#include <Windows.h>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 {
@@ -7,6 +7,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(420);
 		break;
+
+	//case WM_PAINT:
+	//{
+	//	PAINTSTRUCT ps;
+	//	HDC hdc = BeginPaint(hWnd, &ps);
+	//
+	//	FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+	//
+	//	EndPaint(hWnd, &ps);
+	//}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }

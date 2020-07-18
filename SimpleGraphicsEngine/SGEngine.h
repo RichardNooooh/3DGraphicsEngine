@@ -6,3 +6,14 @@
  * Does not use DirectX or OpenGL. Experimental setup for learning rendering and such.
  * Can eventually be used for physics engine stuff too :D
  */
+
+class SGEngine 
+{
+public:
+	SGEngine(int length, int width);
+	~SGEngine();
+	void setSize(int length, int width);
+	void getFrame();
+private:
+
+};
