@@ -1,31 +1,27 @@
 #include "SGWindow.h"
-#include<iostream>
+#include <iostream>
 #include <cmath>
 
 using namespace std;
 
-#define PI 3.14
-
-int main()
+SGWindow::SGWindow()
 {
-    //Get a console handle
-    HWND myconsole = GetConsoleWindow();
-    //Get a handle to device context
-    HDC mydc = GetDC(myconsole);
+    consoleHandle = GetConsoleWindow();
 
-    int pixel = 0;
+}
 
-    //Choose any color
-    COLORREF COLOR = RGB(255, 255, 255);
+SGWindow::~SGWindow()
+{
+}
 
-    //Draw pixels
-    for (double i = 0; i < PI * 4; i += 0.05)
-    {
-        SetPixel(mydc, pixel, (int)(50 + 25 * cos(i)), COLOR);
-        pixel += 1;
-    }
+void SGWindow::SetPixelImage(int x, int y)
+{
+    HDC mydc = GetDC(consoleHandle);
 
-    ReleaseDC(myconsole, mydc);
+    ReleaseDC(consoleHandle, mydc);
     cin.ignore();
-    return 0;
+}
+
+void SGWindow::SetTitle(char title[])
+{
 }

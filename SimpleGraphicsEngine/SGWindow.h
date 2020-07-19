@@ -43,3 +43,16 @@
 //#define NOMCX
 
 #include <Windows.h>
+#include <string>
+
+class SGWindow
+{
+public:
+	SGWindow();
+	~SGWindow();
+	void SetPixelImage(int x, int y);
+	void SetTitle(char title[]);
+private:
+	HWND consoleHandle;
+};
+
