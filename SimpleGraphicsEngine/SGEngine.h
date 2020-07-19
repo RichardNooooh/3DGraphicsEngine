@@ -15,5 +15,7 @@ public:
 	void setSize(int length, int width);
 	void getFrame();
 private:
+	int width;
+	int height;
 
 };

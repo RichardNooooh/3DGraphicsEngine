@@ -1,70 +1,31 @@
-#include <Windows.h>
+#include "SGWindow.h"
+#include<iostream>
+#include <cmath>
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
+using namespace std;
+
+#define PI 3.14
+
+int main()
 {
-	switch (msg) 
-	{
-	case WM_CLOSE:
-		PostQuitMessage(420);
-		break;
+    //Get a console handle
+    HWND myconsole = GetConsoleWindow();
+    //Get a handle to device context
+    HDC mydc = GetDC(myconsole);
 
-	//case WM_PAINT:
-	//{
-	//	PAINTSTRUCT ps;
-	//	HDC hdc = BeginPaint(hWnd, &ps);
-	//
-	//	FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-	//
-	//	EndPaint(hWnd, &ps);
-	//}
-	}
-	return DefWindowProc(hWnd, msg, wParam, lParam);
-}
+    int pixel = 0;
 
-//Modified from ChiliTomatoNoodle's C++ DirectX Tutorial: https://www.youtube.com/watch?v=nQTiSLiNyk4
-int CALLBACK WinMain(HINSTANCE hInstance,
-					 HINSTANCE hPrevInstance,
-					 LPSTR lpCmdLine,
-					 int nCmdShow)
-{
-	const LPCWSTR pClassName = L"Test";
+    //Choose any color
+    COLORREF COLOR = RGB(255, 255, 255);
 
-	//register window class
-	WNDCLASSEX wc = {0};
-	wc.cbSize = sizeof(wc);
-	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = WndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hInstance;
-	wc.hIcon = nullptr;
-	wc.hCursor = nullptr;
-	wc.hbrBackground = nullptr;
-	wc.lpszMenuName = nullptr;
-	wc.lpszClassName = pClassName;
-	wc.hIconSm = nullptr;
+    //Draw pixels
+    for (double i = 0; i < PI * 4; i += 0.05)
+    {
+        SetPixel(mydc, pixel, (int)(50 + 25 * cos(i)), COLOR);
+        pixel += 1;
+    }
 
-	RegisterClassEx(&wc);
-
-	//create and show window instance
-	DWORD windowStyles = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-	HWND hWnd = CreateWindowEx(0, pClassName,
-							   L"Test Window", windowStyles,
-							   200, 200, 640, 480,
-							   nullptr, nullptr, hInstance, nullptr);
-
-	ShowWindow(hWnd, SW_SHOW);
-	
-	//barebones "message pump"
-	MSG msg;
-	BOOL rc;
-	while ((rc = GetMessage(&msg, nullptr, 0, 0)) > 0)
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		//Draw on the client window for this "frame"
-		//Calculate the fps
-	}
-
-	return rc == -1 ? -1 : msg.wParam;
+    ReleaseDC(myconsole, mydc);
+    cin.ignore();
+    return 0;
 }
