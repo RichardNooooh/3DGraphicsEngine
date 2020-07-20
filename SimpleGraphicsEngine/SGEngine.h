@@ -10,12 +10,12 @@
 class SGEngine 
 {
 public:
-	SGEngine(int length, int width);
+	SGEngine(int height, int width);
 	~SGEngine();
-	void setSize(int length, int width);
+	void setSize(int height, int width);
 	void getFrame();
 private:
-	int width;
-	int height;
+	int w;
+	int h;
 
 };

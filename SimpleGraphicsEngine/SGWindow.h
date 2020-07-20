@@ -50,9 +50,12 @@ class SGWindow
 public:
 	SGWindow();
 	~SGWindow();
-	void SetPixelImage(int x, int y);
+	void StartFrame();
+	void EndFrame();
+	void SetFramePixel(int x, int y, COLORREF color);
 	void SetTitle(char title[]);
 private:
 	HWND consoleHandle;
+	HDC currentDeviceContext;
 };
 

@@ -12,13 +12,22 @@ SGWindow::SGWindow()
 
 SGWindow::~SGWindow()
 {
+    EndFrame();
 }
 
-void SGWindow::SetPixelImage(int x, int y)
+void SGWindow::StartFrame()
 {
-    HDC mydc = GetDC(consoleHandle);
+    currentDeviceContext = GetDC(consoleHandle);
+}
 
-    ReleaseDC(consoleHandle, mydc);
+void SGWindow::EndFrame()
+{
+    ReleaseDC(consoleHandle, currentDeviceContext);
+}
+
+void SGWindow::SetFramePixel(int x, int y, COLORREF color)
+{
+    SetPixel(currentDeviceContext, x, y, color);
     cin.ignore();
 }
 

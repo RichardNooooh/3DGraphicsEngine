@@ -1,8 +1,9 @@
 #include "SGEngine.h"
 
-SGEngine::SGEngine(int length, int width)
+SGEngine::SGEngine(int height, int width)
 {
-
+	w = width;
+	h = height;
 }
 
 SGEngine::~SGEngine()
