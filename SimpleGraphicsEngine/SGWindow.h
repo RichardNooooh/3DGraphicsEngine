@@ -5,16 +5,16 @@
  * https://stackoverflow.com/questions/1394910/how-to-tame-the-windows-headers-useful-defines
  */
 
-#define NOGDICAPMASKS
+//#define NOGDICAPMASKS
 //#define NOVIRTUALKEYCODES
 //#define NOWINMESSAGES
 //#define NOWINSTYLES
-#define NOSYSMETRICS
-#define NOMENUS
-#define NOICONS
-#define NOKEYSTATES
-#define NOSYSCOMMANDS
-#define NORASTEROPS
+//#define NOSYSMETRICS
+//#define NOMENUS
+//#define NOICONS
+//#define NOKEYSTATES
+//#define NOSYSCOMMANDS
+//#define NORASTEROPS
 //#define NOSHOWWINDOW
 //#define OEMRESOURCE
 //#define NOATOM
@@ -29,7 +29,7 @@
 //#define NOMINMAX
 //#define NOMSG
 //#define NOOPENFILE
-#define NOSCROLL
+//#define NOSCROLL
 //#define NOSERVICE
 //#define NOSOUND
 //#define NOTEXTMETRIC

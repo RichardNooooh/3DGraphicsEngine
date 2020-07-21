@@ -22,11 +22,21 @@ void SGEngine::StartRenderingLoop()
 	while (isRendering) 
 	{
 		//start frame
-		
+		//window.StartFrame();
+
+		//vertically drawn
+		for (int y = 0; y < h; y++)
+		{
+			for (int x = 0; x < w; x++) 
+			{
+				window.SetFramePixel(x, y, RGB(255, 25, 252));
+			}
+		}
 
 
 
 
 		//end frame
+		//window.EndFrame();
 	}
 }

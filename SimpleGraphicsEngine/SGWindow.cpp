@@ -27,13 +27,14 @@ void SGWindow::StartFrame()
 
 void SGWindow::EndFrame()
 {
-    ReleaseDC(consoleHandle, currentDeviceContext);
+
 }
 
 void SGWindow::SetFramePixel(int x, int y, COLORREF color)
 {
+    currentDeviceContext = GetDC(consoleHandle);
     SetPixel(currentDeviceContext, x, y, color);
-    cin.ignore();
+    ReleaseDC(consoleHandle, currentDeviceContext);
 }
 
 void SGWindow::SetTitle(char title[])
