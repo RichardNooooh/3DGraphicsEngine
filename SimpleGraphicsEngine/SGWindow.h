@@ -48,7 +48,7 @@
 class SGWindow
 {
 public:
-	SGWindow();
+	SGWindow(int width, int height);
 	~SGWindow();
 	void StartFrame();
 	void EndFrame();

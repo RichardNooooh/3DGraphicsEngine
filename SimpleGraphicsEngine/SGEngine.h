@@ -6,12 +6,12 @@
  * Does not use DirectX or OpenGL. Experimental setup for learning rendering and such.
  * Can eventually be used for physics engine stuff too :D
  */
-#include "SGWindow.h";
+#include "SGWindow.h"
 
 class SGEngine 
 {
 public:
-	SGEngine(int height, int width);
+	SGEngine(int width, int height);
 	~SGEngine();
 	void setSize(int height, int width);
 private:

@@ -1,11 +1,8 @@
 #include "SGEngine.h"
 
 
-SGEngine::SGEngine(int height, int width)
+SGEngine::SGEngine(int width, int height) : w(width), h(height), window(width, height) 
 {
-	w = width;
-	h = height;
-	window = SGWindow();
 	StartRenderingLoop();
 }
 
@@ -25,6 +22,7 @@ void SGEngine::StartRenderingLoop()
 	while (isRendering) 
 	{
 		//start frame
+		
 
 
 

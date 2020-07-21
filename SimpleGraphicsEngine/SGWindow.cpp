@@ -4,10 +4,15 @@
 
 using namespace std;
 
-SGWindow::SGWindow()
+SGWindow::SGWindow(int width, int height)
 {
     consoleHandle = GetConsoleWindow();
 
+    RECT r = { 0 };
+    GetWindowRect(consoleHandle, &r); //stores the console's current dimensions
+    MoveWindow(consoleHandle, r.left, r.top, width, height, TRUE);
+
+    currentDeviceContext = nullptr;
 }
 
 SGWindow::~SGWindow()

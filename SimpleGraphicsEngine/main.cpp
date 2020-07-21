@@ -2,6 +2,6 @@
 
 int main()
 {
-    SGEngine engine(640, 480);
+    SGEngine engine(1440, 1080);
     return 0;
 }
