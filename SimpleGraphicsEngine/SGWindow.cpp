@@ -18,7 +18,6 @@ SGWindow::~SGWindow()
 void SGWindow::clear() const
 {
 	SDL_RenderClear(_renderer);
-	SDL_RenderPresent(_renderer);
 }
 
 void SGWindow::pollEvents()
@@ -47,6 +46,7 @@ int SGWindow::lockFrame(FrameInfo frameInfo)
 void SGWindow::unlockFrame(FrameInfo frameInfo)
 {
 	SDL_UnlockTexture(_texture);
+	SDL_RenderPresent(_renderer);
 }
 
 
