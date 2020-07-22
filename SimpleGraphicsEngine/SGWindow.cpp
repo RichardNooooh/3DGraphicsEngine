@@ -46,6 +46,7 @@ int SGWindow::lockFrame(FrameInfo frameInfo)
 void SGWindow::unlockFrame(FrameInfo frameInfo)
 {
 	SDL_UnlockTexture(_texture);
+	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
 	SDL_RenderPresent(_renderer);
 }
 
