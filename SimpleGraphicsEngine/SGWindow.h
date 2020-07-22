@@ -11,6 +11,9 @@ public:
 
 	void clear() const;
 	void pollEvents();
+	int lockFrame(FrameInfo frameInfo);
+	void unlockFrame(FrameInfo frameInfo);
+
 
 private:
 	bool initialize();
@@ -21,6 +24,16 @@ private:
 
 	bool _closed = false;
 
+	void* pixels;
+	int pitch;
+
 	SDL_Window *_window = nullptr;
-	SDL_Renderer* _renderer = nullptr;
+	SDL_Renderer *_renderer = nullptr;
+	SDL_Texture *_texture = nullptr;
+};
+
+struct FrameInfo 
+{
+	void* pixels;
+	int pitch;
 };

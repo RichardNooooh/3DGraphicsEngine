@@ -8,7 +8,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     while (!window.isClosed()) 
     {
         window.pollEvents();
-        window.clear();
+        
     }
 
     return 0;
