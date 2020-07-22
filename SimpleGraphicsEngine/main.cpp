@@ -11,7 +11,7 @@
 
 int main() 
 {
-    SGEngine engine("test ", 640 / 4, 480 / 4);
+    SGEngine engine("test ", 640, 480);
     engine.startLoop();
     return 0;
 }

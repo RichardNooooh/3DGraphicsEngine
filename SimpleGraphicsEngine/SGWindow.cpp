@@ -56,7 +56,7 @@ void SGWindow::pollEvents()
 
 int SGWindow::updateFrame(Uint32 *pixels)
 {
-	SDL_UpdateTexture(_texture, NULL, pixels, 4 * _width);
+	SDL_UpdateTexture(_texture, NULL, pixels, _width * 4);
 	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
 	SDL_RenderPresent(_renderer);
 	return 0;
@@ -76,7 +76,7 @@ bool SGWindow::initialize()
 		return false;
 	}
 
-	_window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 4 * _width, 4 * _height, 0);
+	_window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, 0);
 	if (_window == nullptr) 
 	{
 		std::cerr << "Failed to create window";
@@ -90,7 +90,8 @@ bool SGWindow::initialize()
 		return false;
 	}
 
-	_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, _width, _height);
+	//I think the width/height is divided by 4 because of the size of the pixel (UINT32), need to experiment
+	_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, _width, _height); 
 	if (_renderer == nullptr)
 	{
 		std::cerr << "Failed to create texture";

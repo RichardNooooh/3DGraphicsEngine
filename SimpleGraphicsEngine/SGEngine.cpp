@@ -27,11 +27,11 @@ int SGEngine::startLoop()
 		{
 			for (int y = 0; y < _height; y++)
 			{
-				/*int a = 255 << 24;
+				int a = 255 << 24;
 				int r = (rand() % 255) << 16;
 				int g = (rand() % 255) << 12;
-				int b = (rand() % 255);*/
-				pixels[x + y * _width] = color;
+				int b = (rand() % 255);
+				pixels[x + y * _width] = a | r | g | b;
 			}
 		}
 		window->updateFrame(pixels);
