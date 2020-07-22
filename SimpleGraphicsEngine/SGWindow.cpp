@@ -50,6 +50,11 @@ void SGWindow::unlockFrame(FrameInfo frameInfo)
 	SDL_RenderPresent(_renderer);
 }
 
+void SGWindow::wait(Uint32 milliseconds)
+{
+	SDL_Delay(milliseconds);
+}
+
 
 bool SGWindow::initialize()
 {
