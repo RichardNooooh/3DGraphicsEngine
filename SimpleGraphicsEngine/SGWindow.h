@@ -8,6 +8,8 @@ public:
 	SGWindow(const std::string &title, int width, int height);
 	~SGWindow();
 	inline bool isClosed() const { return _closed; };
+
+	void clear() const;
 	void pollEvents();
 
 private:

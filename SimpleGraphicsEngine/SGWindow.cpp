@@ -10,8 +10,15 @@ SGWindow::SGWindow(const std::string& title, int width, int height) :
 
 SGWindow::~SGWindow()
 {
+	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
+}
+
+void SGWindow::clear() const
+{
+	SDL_RenderClear(_renderer);
+	SDL_RenderPresent(_renderer);
 }
 
 void SGWindow::pollEvents()
@@ -39,6 +46,13 @@ bool SGWindow::initialize()
 	if (_window == nullptr) 
 	{
 		std::cerr << "Failed to create window";
+		return false;
+	}
+
+	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	if (_renderer == nullptr)
+	{
+		std::cerr << "Failed to create renderer";
 		return false;
 	}
 
