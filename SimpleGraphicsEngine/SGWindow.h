@@ -17,8 +17,9 @@ public:
 
 	void clear() const;
 	void pollEvents();
-	int lockFrame(FrameInfo frameInfo);
-	void unlockFrame(FrameInfo frameInfo);
+	//int lockFrame(FrameInfo frameInfo);
+	//void unlockFrame(FrameInfo frameInfo);
+	int updateFrame(Uint32 *pixels);
 	
 	void wait(Uint32 milliseconds);
 

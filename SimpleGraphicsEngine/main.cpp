@@ -1,15 +1,17 @@
-#include "SGWindow.h"
-#include <Windows.h>
 
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//#include <Windows.h>
+
+#include "SGEngine.h"
+#undef main
+
+//int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//{
+//
+//}
+
+int main() 
 {
-    SGWindow window("Test", 640, 480);
-
-    while (!window.isClosed()) 
-    {
-        window.pollEvents();
-        
-    }
-
+    SGEngine engine("test ", 640 / 4, 480 / 4);
+    engine.startLoop();
     return 0;
 }

@@ -19,13 +19,11 @@ int SGEngine::startLoop()
 	while (!window->isClosed())
 	{
 		window->pollEvents();
-		
-		std::vector<Uint32> pixels(Uint64(_width) * _height, 0);
-		Uint32* pixelData = pixels.data();
-		int pitch = 0;
 
-		window->lockFrame(&pixelData, &pitch);
-		for (int x = 0; x < pitch; x++)
+		Uint32 *pixels = new Uint32[_width * _height];
+
+		unsigned color = 0xFF01AAA5, blank = 0xFFFFFF, duplicate = 0xFFAA55;
+		for (int x = 0; x < _width; x++)
 		{
 			for (int y = 0; y < _height; y++)
 			{
@@ -33,11 +31,12 @@ int SGEngine::startLoop()
 				int r = (rand() % 255) << 16;
 				int g = (rand() % 255) << 12;
 				int b = (rand() % 255);*/
-				pixels[Uint64(x)+ Uint64(y) * pitch] = 0xFFAAAAAA;
+				pixels[x + y * _width] = color;
 			}
 		}
-		window->unlockFrame();
+		window->updateFrame(pixels);
 		window->wait(100);
+		delete[] pixels;
 	}
 	return 0;
 }

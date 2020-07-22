@@ -29,25 +29,37 @@ void SGWindow::pollEvents()
 		case SDL_QUIT:
 			_closed = true;
 			break;
+		case SDL_MOUSEMOTION:
+			std::cout << event.motion.x << ", " << event.motion.y << "\n";
+			break;
 		}
+
 	}
 }
 
-int SGWindow::lockFrame(FrameInfo frameInfo)
-{
-	if (SDL_LockTexture(_texture, NULL, &frameInfo.pixels, &frameInfo.pitch) != 0)
-	{
-		std::cerr << "Unable to LockTexture";
-		return -1;
-	}
-	return 0;
-}
+//int SGWindow::lockFrame(FrameInfo frameInfo)
+//{
+//	if (SDL_LockTexture(_texture, NULL, &frameInfo.pixels, &frameInfo.pitch) != 0)
+//	{
+//		std::cerr << "Unable to LockTexture";
+//		return -1;
+//	}
+//	return 0;
+//}
+//
+//void SGWindow::unlockFrame(FrameInfo frameInfo)
+//{
+//	SDL_UnlockTexture(_texture);
+//	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
+//	SDL_RenderPresent(_renderer);
+//}
 
-void SGWindow::unlockFrame(FrameInfo frameInfo)
+int SGWindow::updateFrame(Uint32 *pixels)
 {
-	SDL_UnlockTexture(_texture);
+	SDL_UpdateTexture(_texture, NULL, pixels, 4 * _width);
 	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
 	SDL_RenderPresent(_renderer);
+	return 0;
 }
 
 void SGWindow::wait(Uint32 milliseconds)
@@ -64,7 +76,7 @@ bool SGWindow::initialize()
 		return false;
 	}
 
-	_window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, 0);
+	_window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 4 * _width, 4 * _height, 0);
 	if (_window == nullptr) 
 	{
 		std::cerr << "Failed to create window";
