@@ -1,61 +1,42 @@
 #pragma once
-/*
- * Disables unused features of Windows.h and clears up namespace.
- * From user "Cat Plus Plus" on StackOverFlow: 
- * https://stackoverflow.com/questions/1394910/how-to-tame-the-windows-headers-useful-defines
- */
-
-#define NOGDICAPMASKS
-//#define NOVIRTUALKEYCODES
-//#define NOWINMESSAGES
-//#define NOWINSTYLES
-#define NOSYSMETRICS
-#define NOMENUS
-#define NOICONS
-#define NOKEYSTATES
-#define NOSYSCOMMANDS
-#define NORASTEROPS
-//#define NOSHOWWINDOW
-//#define OEMRESOURCE
-//#define NOATOM
-//#define NOCLIPBOARD
-//#define NOCTLMGR
-//#define NOKERNEL
-//#define NOUSER
-//#define NONLS
-//#define NOMB
-//#define NOMEMMGR
-//#define NOMETAFILE
-//#define NOMINMAX
-//#define NOMSG
-//#define NOOPENFILE
-#define NOSCROLL
-//#define NOSERVICE
-//#define NOSOUND
-//#define NOTEXTMETRIC
-//#define NOWH
-//#define NOWINOFFSETS
-//#define NOCOMM
-//#define NOKANJI
-//#define NOHELP
-//#define NOPROFILER
-//#define NODEFERWINDOWPOS
-//#define NOMCX
-
-#include <Windows.h>
 #include <string>
+#include <SDL.h>
 
-class SGWindow
+struct FrameInfo
+{
+	void* pixels;
+	int pitch;
+};
+
+class SGWindow 
 {
 public:
-	SGWindow();
+	SGWindow(const std::string &title, int width, int height);
 	~SGWindow();
-	void StartFrame();
-	void EndFrame();
-	void SetFramePixel(int x, int y, COLORREF color);
-	void SetTitle(char title[]);
+	inline bool isClosed() const { return _closed; };
+
+	void clear() const;
+	void pollEvents();
+	int lockFrame(FrameInfo frameInfo);
+	void unlockFrame(FrameInfo frameInfo);
+	
+	void wait(Uint32 milliseconds);
+
+
 private:
-	HWND consoleHandle;
-	HDC currentDeviceContext;
+	bool initialize();
+
+	std::string _title = "Default SGWindow";
+	int _width = 600;
+	int _height = 800;
+
+	bool _closed = false;
+
+	void* pixels;
+	int pitch;
+
+	SDL_Window *_window = nullptr;
+	SDL_Renderer *_renderer = nullptr;
+	SDL_Texture *_texture = nullptr;
 };
 
