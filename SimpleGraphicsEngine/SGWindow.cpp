@@ -37,30 +37,31 @@ void SGWindow::pollEvents()
 	}
 }
 
-//int SGWindow::lockFrame(FrameInfo frameInfo)
-//{
-//	if (SDL_LockTexture(_texture, NULL, &frameInfo.pixels, &frameInfo.pitch) != 0)
-//	{
-//		std::cerr << "Unable to LockTexture";
-//		return -1;
-//	}
-//	return 0;
-//}
-//
-//void SGWindow::unlockFrame(FrameInfo frameInfo)
-//{
-//	SDL_UnlockTexture(_texture);
-//	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
-//	SDL_RenderPresent(_renderer);
-//}
-
-int SGWindow::updateFrame(Uint32 *pixels)
+int SGWindow::lockFrame(Uint32 **pixels, int *pitch)
 {
-	SDL_UpdateTexture(_texture, NULL, pixels, _width * 4);
-	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
-	SDL_RenderPresent(_renderer);
+	int temp;
+	if (SDL_LockTexture(_texture, NULL, (void**)pixels, pitch) != 0)
+	{
+		std::cerr << "Unable to LockTexture";
+		return -1;
+	}
 	return 0;
 }
+
+void SGWindow::unlockFrame()
+{
+	SDL_UnlockTexture(_texture);
+	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
+	SDL_RenderPresent(_renderer);
+}
+
+//int SGWindow::updateFrame(Uint32 *pixels)
+//{
+//	SDL_UpdateTexture(_texture, NULL, pixels, _width * 4);
+//	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
+//	SDL_RenderPresent(_renderer);
+//	return 0;
+//}
 
 void SGWindow::wait(Uint32 milliseconds)
 {

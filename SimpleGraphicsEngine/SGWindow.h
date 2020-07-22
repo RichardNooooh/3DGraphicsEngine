@@ -2,12 +2,6 @@
 #include <string>
 #include <SDL.h>
 
-struct FrameInfo
-{
-	void* pixels;
-	int pitch;
-};
-
 class SGWindow 
 {
 public:
@@ -17,9 +11,9 @@ public:
 
 	void clear() const;
 	void pollEvents();
-	//int lockFrame(FrameInfo frameInfo);
-	//void unlockFrame(FrameInfo frameInfo);
-	int updateFrame(Uint32 *pixels);
+	int lockFrame(Uint32** pixels, int* pitch);
+	void unlockFrame();
+	//int updateFrame(Uint32 *pixels);
 	
 	void wait(Uint32 milliseconds);
 

@@ -20,9 +20,10 @@ int SGEngine::startLoop()
 	{
 		window->pollEvents();
 
-		Uint32 *pixels = new Uint32[_width * _height];
+		Uint32* pixels = { 0 };
+		int pitch = 0;
 
-		unsigned color = 0xFF01AAA5, blank = 0xFFFFFF, duplicate = 0xFFAA55;
+		window->lockFrame(&pixels, &pitch);
 		for (int x = 0; x < _width; x++)
 		{
 			for (int y = 0; y < _height; y++)
@@ -34,9 +35,8 @@ int SGEngine::startLoop()
 				pixels[x + y * _width] = a | r | g | b;
 			}
 		}
-		window->updateFrame(pixels);
+		window->unlockFrame();
 		window->wait(100);
-		delete[] pixels;
 	}
 	return 0;
 }
