@@ -29,13 +29,18 @@ void SGWindow::pollEvents()
 		case SDL_QUIT:
 			_closed = true;
 			break;
+		case SDL_MOUSEMOTION:
+			std::cout << event.motion.x << ", " << event.motion.y << "\n";
+			break;
 		}
+
 	}
 }
 
-int SGWindow::lockFrame(FrameInfo frameInfo)
+int SGWindow::lockFrame(Uint32 **pixels, int *pitch)
 {
-	if (SDL_LockTexture(_texture, NULL, &frameInfo.pixels, &frameInfo.pitch) != 0)
+	int temp;
+	if (SDL_LockTexture(_texture, NULL, (void**)pixels, pitch) != 0)
 	{
 		std::cerr << "Unable to LockTexture";
 		return -1;
@@ -43,12 +48,20 @@ int SGWindow::lockFrame(FrameInfo frameInfo)
 	return 0;
 }
 
-void SGWindow::unlockFrame(FrameInfo frameInfo)
+void SGWindow::unlockFrame()
 {
 	SDL_UnlockTexture(_texture);
 	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
 	SDL_RenderPresent(_renderer);
 }
+
+//int SGWindow::updateFrame(Uint32 *pixels)
+//{
+//	SDL_UpdateTexture(_texture, NULL, pixels, _width * 4);
+//	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
+//	SDL_RenderPresent(_renderer);
+//	return 0;
+//}
 
 void SGWindow::wait(Uint32 milliseconds)
 {
@@ -78,7 +91,8 @@ bool SGWindow::initialize()
 		return false;
 	}
 
-	_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, _width, _height);
+	//I think the width/height is divided by 4 because of the size of the pixel (UINT32), need to experiment
+	_texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, _width, _height); 
 	if (_renderer == nullptr)
 	{
 		std::cerr << "Failed to create texture";

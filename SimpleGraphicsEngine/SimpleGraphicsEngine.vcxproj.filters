@@ -21,9 +21,15 @@
     <ClCompile Include="SGWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SGEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SGWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
