@@ -26,6 +26,15 @@ struct Vector3
 		return Vector3(c * x, c * y, c * z);
 	}
 
+	Vector3 Matrix44Multiply(Matrix44 matrix) const 
+	{
+		float resultX = x * matrix.m[0][0] + y * matrix.m[0][1] + z * matrix.m[0][2];
+		float resultY = x * matrix.m[1][0] + y * matrix.m[1][1] + z * matrix.m[1][2];
+		float resultZ = x * matrix.m[2][0] + y * matrix.m[2][1] + z * matrix.m[2][2];
+		float resultW = x * matrix.m[3][0] + y * matrix.m[3][1] + z * matrix.m[3][2];
+		return Vector3(resultX / resultW, resultY / resultW, resultZ / resultW);
+	}
+
 };
 
 struct Matrix44 
@@ -51,7 +60,7 @@ struct Matrix44
 	}
 };
 
-static const Matrix44 WorldToPerspectiveMatrix = { { {1, 0, 0, 0},
-													 {1, 0, 0, 0},
-													 {1, 0, 0, 0},
-													 {1, 0, 0, 0} } };
+//static const Matrix44 WorldToPerspectiveMatrix = { { {0, 0, 0, 0},
+//													 {0, 0, 0, 0},
+//													 {0, 0, 0, 0},
+//													 {0, 0, 0, 0} } };
