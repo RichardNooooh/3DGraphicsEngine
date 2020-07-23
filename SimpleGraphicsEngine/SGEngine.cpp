@@ -1,4 +1,7 @@
 #include "SGEngine.h"
+
+#include "SGMath.h" //should move this to the header, maybe.
+
 #include <vector>
 #include <iostream>
 
@@ -16,6 +19,34 @@ SGEngine::~SGEngine()
 
 int SGEngine::startLoop()
 {
+	//unit cube creation, TODO move this to main and add a "add mesh" thing
+	Vector3 point000(0, 0, 0);
+	Vector3 point001(0, 0, 1);
+	Vector3 point010(0, 1, 0);
+	Vector3 point011(0, 1, 1);
+	Vector3 point100(1, 0, 0);
+	Vector3 point101(1, 0, 1);
+	Vector3 point110(1, 1, 0);
+	Vector3 point111(1, 1, 1);
+
+	Triangle front1 = { {point000, point010, point110} };
+	Triangle front2 = { {point000, point110, point100} };
+	Triangle right1 = { {point100, point110, point111} };
+	Triangle right2 = { {point100, point111, point101} };
+	Triangle top1 = { {point010, point011, point111} };
+	Triangle top2 = { {point010, point111, point110} };
+	Triangle left1 = { {point001, point011, point010} };
+	Triangle left2 = { {point001, point010, point000} };
+	Triangle back1 = { {point101, point111, point011} };
+	Triangle back2 = { {point101, point011, point001} };
+	Triangle bottom1 = { {point001, point000, point100} };
+	Triangle bottom2 = { {point001, point100, point101} };
+	
+	std::vector<Triangle> cube{ front1, front2, right1, right2, top1, top2,
+								left1, left2, back1, back2, bottom1, bottom2 };
+	
+
+	//main loop
 	while (!window->isClosed())
 	{
 		window->pollEvents();
@@ -24,17 +55,11 @@ int SGEngine::startLoop()
 		int pitch = 0;
 
 		window->lockFrame(&pixels, &pitch);
-		for (int x = 0; x < _width; x++)
+		for (Triangle tri : cube) 
 		{
-			for (int y = 0; y < _height; y++)
-			{
-				int a = 255 << 24;
-				int r = (rand() % 255) << 16;
-				int g = (rand() % 255) << 12;
-				int b = (rand() % 255);
-				pixels[x + y * _width] = a | r | g | b;
-			}
+			//draw projected triangles
 		}
+
 		window->unlockFrame();
 		window->wait(100);
 	}
