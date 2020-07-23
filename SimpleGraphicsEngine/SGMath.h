@@ -76,6 +76,24 @@ struct Matrix44
 		}
 		return { {} };
 	}
+
+	Matrix44 Scale(float c) const 
+	{
+		Matrix44 result = { { {0}, {0}, {0}, {0} } };
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				result.m[i][j] = c * m[i][j];
+		return result;
+	}
+
+	Matrix44 Transpose() const 
+	{
+		Matrix44 result = { { {0}, {0}, {0}, {0} } };
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				result.m[i][j] = m[j][i];
+		return result;
+	}
 };
 
 //static const Matrix44 WorldToPerspectiveMatrix = { { {0, 0, 0, 0},
