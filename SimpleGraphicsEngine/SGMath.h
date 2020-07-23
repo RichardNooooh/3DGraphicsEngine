@@ -21,6 +21,15 @@ struct Vector3
 		return x * other.x + y * other.y + z * other.z;
 	}
 	
+	Vector3 CrossProduct(Vector3 other) const
+	{
+		float resultX = y * other.z - z * other.y;
+		float resultY = z * other.x - x * other.z;
+		float resultZ = x * other.y - y * other.x;
+
+		return Vector3(resultX, resultY, resultZ);
+	}
+
 	Vector3 Scale(float c) const
 	{
 		return Vector3(c * x, c * y, c * z);
