@@ -24,12 +24,18 @@
     <ClCompile Include="SGEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SGMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SGWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SGEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SGMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
