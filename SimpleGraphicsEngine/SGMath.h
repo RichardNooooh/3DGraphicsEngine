@@ -46,6 +46,11 @@ struct Vector3
 
 };
 
+struct Triangle 
+{
+	Vector3 points[3];
+};
+
 struct Matrix44 
 {
 	float m[4][4] = { 0 };
