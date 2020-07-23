@@ -32,7 +32,7 @@ struct Vector3
 		float resultY = x * matrix.m[1][0] + y * matrix.m[1][1] + z * matrix.m[1][2];
 		float resultZ = x * matrix.m[2][0] + y * matrix.m[2][1] + z * matrix.m[2][2];
 		float resultW = x * matrix.m[3][0] + y * matrix.m[3][1] + z * matrix.m[3][2];
-		return Vector3(resultX / resultW, resultY / resultW, resultZ / resultW);
+		return Vector3(resultX / resultW, resultY / resultW, resultZ / resultW); //Why do we divide by W
 	}
 
 };
@@ -45,18 +45,36 @@ struct Matrix44
 
 	Matrix44 operator+ (Matrix44 other) const 
 	{
-		return { { {m[0][0] + other.m[0][0], m[0][1] + other.m[0][1], m[0][2] + other.m[0][3]},
-				   {m[1][0] + other.m[1][0], m[1][1] + other.m[1][1], m[1][2] + other.m[1][3]},
-				   {m[2][0] + other.m[2][0], m[2][1] + other.m[2][1], m[2][2] + other.m[2][3]},
-				   {m[3][0] + other.m[3][0], m[3][1] + other.m[3][1], m[3][2] + other.m[3][3]} } };
+		Matrix44 result = { { {0}, {0}, {0}, {0} } };
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				result.m[i][j] = m[i][j] + other.m[i][j];
+
+		return result;
 	}
 
 	Matrix44 operator- (Matrix44 other) const
 	{
-		return { { {m[0][0] - other.m[0][0], m[0][1] - other.m[0][1], m[0][2] - other.m[0][3]},
-				   {m[1][0] - other.m[1][0], m[1][1] - other.m[1][1], m[1][2] - other.m[1][3]},
-				   {m[2][0] - other.m[2][0], m[2][1] - other.m[2][1], m[2][2] - other.m[2][3]},
-				   {m[3][0] - other.m[3][0], m[3][1] - other.m[3][1], m[3][2] - other.m[3][3]} } };
+		Matrix44 result = { { {0}, {0}, {0}, {0} } };
+		for (int i = 0; i < 4; i++) 
+			for (int j = 0; j < 4; j++) 
+				result.m[i][j] = m[i][j] - other.m[i][j];
+
+		return result;
+	}
+
+	Matrix44 operator* (Matrix44 other) const
+	{
+		Matrix44 result = { { {0}, {0}, {0}, {0} } };
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				// Inner loop adds left/right entries
+				for (int k = 0; k < 4; k++) {
+					result.m[i][j] += m[i][k] * other.m[k][j];
+				}
+			} 
+		}
+		return { {} };
 	}
 };
 
