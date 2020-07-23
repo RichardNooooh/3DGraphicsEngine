@@ -27,3 +27,13 @@ struct Vector3
 	}
 
 };
+
+struct Matrix44 
+{
+	float matrix[4][4];
+};
+
+static const Matrix44 WorldToPerspectiveMatrix = { { {1, 0, 0, 0},
+													 {1, 0, 0, 0},
+												     {1, 0, 0, 0},
+												     {1, 0, 0, 0} } };
