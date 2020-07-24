@@ -173,8 +173,33 @@ void SGEngine::drawEmptyTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3
 	//window->unlockFrame();
 }
 
-//Bresenham's Algoirthm
+//Bresenham's Algoirthm from Wikipedia
 void SGEngine::drawLine(Uint32* pixels, Vector3 p0, Vector3 p1)
 {
-	//TODO fix this
+	int x0 = p0.x; int x1 = p1.x;
+	int y0 = p0.y; int y1 = p1.y;
+
+	int dx = abs(x1 - x0);
+	int dy = -abs(y1 - y0);
+
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx + dy;
+
+	while (x0 != x1 || y0 != y1)
+	{
+		if (x0 < _width && x0 >= 0 && y0 < _height && y0 >= 0)
+			pixels[x0 + _width * y0] = 0xFFFFFFFF;
+		int e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			err += dy;
+			x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
 }
