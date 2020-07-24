@@ -19,6 +19,15 @@ SGEngine::~SGEngine()
 
 int SGEngine::startLoop()
 {
+	//Perspective Matrix
+	float fovAngle = 45;
+	float zFarPlane = -10;
+	float zNearPlane = 5;
+	static Matrix44 PerspectiveMatrix = { { {1 / tan(45 / 2), 0, 0, 0},
+											{0, 1 / tan(45 / 2), 0, 0},
+											{0, 0, (zFarPlane + zNearPlane) / (zFarPlane - zNearPlane), -1},
+											{0, 0, (2 * zFarPlane * zNearPlane) / (zFarPlane - zNearPlane), 0} } };
+
 	//unit cube creation, TODO move this to main and add a "add mesh" thing
 	Vector3 point000(0, 0, 0);
 	Vector3 point001(0, 0, 1);
@@ -58,6 +67,9 @@ int SGEngine::startLoop()
 		for (Triangle tri : cube) 
 		{
 			//draw projected triangles
+			Vector3 projectedPoint0 = tri.points[0].Matrix44Multiply(PerspectiveMatrix);
+			Vector3 projectedPoint1 = tri.points[1].Matrix44Multiply(PerspectiveMatrix);
+			Vector3 projectedPoint2 = tri.points[2].Matrix44Multiply(PerspectiveMatrix);
 		}
 
 		window->unlockFrame();
