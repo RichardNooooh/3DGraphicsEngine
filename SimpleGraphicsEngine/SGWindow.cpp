@@ -17,6 +17,7 @@ SGWindow::~SGWindow()
 
 void SGWindow::clear() const
 {
+	//SDL_SetRenderTarget(_renderer, _texture);
 	SDL_RenderClear(_renderer);
 }
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <math.h>
 
+
 struct Matrix44
 {
-	float m[4][4] = { 0 };
+	float m[4][4];
 	//Matrix44(float input[4][4]);
 	//~Matrix44();
 
@@ -38,7 +39,8 @@ struct Matrix44
 				}
 			}
 		}
-		return { {} };
+
+		return result;
 	}
 
 	Matrix44 Scale(float c) const
@@ -96,15 +98,6 @@ struct Vector3
 
 	Vector3 Matrix44Multiply(Matrix44 matrix) const
 	{
-		//std::cout << "Matrix is: ";
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	std::cout << "[ ";
-		//	for (int j = 0; j < 4; j++)
-		//		std::cout << matrix.m[i][j] << " ";
-		//	std::cout << "]\n";
-		//}
-		//std::cout << "\n";
 		float resultX = x * matrix.m[0][0] + y * matrix.m[1][0] + z * matrix.m[2][0] + matrix.m[3][0];
 		float resultY = x * matrix.m[0][1] + y * matrix.m[1][1] + z * matrix.m[2][1] + matrix.m[3][1];
 		float resultZ = x * matrix.m[0][2] + y * matrix.m[1][2] + z * matrix.m[2][2] + matrix.m[3][2];
