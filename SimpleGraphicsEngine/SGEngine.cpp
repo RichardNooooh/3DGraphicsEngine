@@ -1,7 +1,5 @@
 #include "SGEngine.h"
 
-#include "SGMath.h" //should move this to the header, maybe.
-
 #include <vector>
 #include <iostream>
 
@@ -59,6 +57,7 @@ int SGEngine::startLoop()
 	while (!window->isClosed())
 	{
 		window->pollEvents();
+		window->clear();
 
 		Uint32* pixels = { 0 };
 		int pitch = 0;
@@ -70,6 +69,10 @@ int SGEngine::startLoop()
 			Vector3 projectedPoint0 = tri.points[0].Matrix44Multiply(PerspectiveMatrix);
 			Vector3 projectedPoint1 = tri.points[1].Matrix44Multiply(PerspectiveMatrix);
 			Vector3 projectedPoint2 = tri.points[2].Matrix44Multiply(PerspectiveMatrix);
+
+			drawPoint(pixels, pitch, projectedPoint0);
+			drawPoint(pixels, pitch, projectedPoint1);
+			drawPoint(pixels, pitch, projectedPoint2);
 		}
 
 		window->unlockFrame();
@@ -82,3 +85,14 @@ void SGEngine::initialize(std::string title)
 {
 	window = new SGWindow(title, _width, _height);
 }
+
+void SGEngine::drawPoint(Uint32 *pixels, int pitch, Vector3 p)
+{
+	if (p.x < _width && p.x >= 0 && p.y < _height && p.y >= 0)
+		pixels[(int)p.x + pitch * (int)p.y] = 0xFFFFFFFF;
+}
+
+//void SGEngine::drawTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3 p2)
+//{
+//	
+//}

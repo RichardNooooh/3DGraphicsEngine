@@ -1,6 +1,7 @@
 #pragma once
 #include <math.h>
 
+struct Matrix44;
 struct Vector3 
 {
 	float x, y, z;
@@ -16,12 +17,12 @@ struct Vector3
 		return Vector3(x - other.x, y - other.y, z - other.z);
 	}
 
-	float DotProduct(Vector3 other) const
+	float DotProduct(Vector3 other) const 
 	{
 		return x * other.x + y * other.y + z * other.z;
 	}
 	
-	Vector3 CrossProduct(Vector3 other) const
+	Vector3 CrossProduct(Vector3 other) const 
 	{
 		float resultX = y * other.z - z * other.y;
 		float resultY = z * other.x - x * other.z;
@@ -35,7 +36,7 @@ struct Vector3
 		return Vector3(c * x, c * y, c * z);
 	}
 
-	Vector3 Matrix44Multiply(Matrix44 matrix) const 
+	Vector3 Matrix44Multiply(Matrix44 matrix) const
 	{
 		float resultX = x * matrix.m[0][0] + y * matrix.m[0][1] + z * matrix.m[0][2];
 		float resultY = x * matrix.m[1][0] + y * matrix.m[1][1] + z * matrix.m[1][2];
@@ -43,7 +44,6 @@ struct Vector3
 		float resultW = x * matrix.m[3][0] + y * matrix.m[3][1] + z * matrix.m[3][2];
 		return Vector3(resultX / resultW, resultY / resultW, resultZ / resultW); //Why do we divide by W
 	}
-
 };
 
 struct Triangle 
