@@ -14,7 +14,7 @@ public:
 private:
 	void initialize(std::string title);
 	//void drawTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3 p2);
-	void drawPoint(Uint32* pixels, int pitch, Vector3 p);
+	void drawPoint(Uint32* pixels, Vector3 p);
 
 	SGWindow *window = nullptr;
 	
