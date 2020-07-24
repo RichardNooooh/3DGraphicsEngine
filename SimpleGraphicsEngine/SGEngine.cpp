@@ -128,13 +128,18 @@ int SGEngine::startLoop()
 			Vector3 projectedPoint2 = triangleTranslated.points[2].Matrix44Multiply(perspectiveMatrix);
 
 			//move and scale to screen
-			projectedPoint0 = projectedPoint0 + Vector3(1.5, 1.5, 0);
-			projectedPoint1 = projectedPoint1 + Vector3(1.5, 1.5, 0);
-			projectedPoint2 = projectedPoint2 + Vector3(1.5, 1.5, 0);
-
 			projectedPoint0 = projectedPoint0.Scale(200);
 			projectedPoint1 = projectedPoint1.Scale(200);
 			projectedPoint2 = projectedPoint2.Scale(200);
+
+			float translateScreenX = _width / 2;
+			float translateScreenY = _height / 2;
+
+			projectedPoint0 = projectedPoint0 + Vector3(translateScreenX, translateScreenY, 0);
+			projectedPoint1 = projectedPoint1 + Vector3(translateScreenX, translateScreenY, 0);
+			projectedPoint2 = projectedPoint2 + Vector3(translateScreenX, translateScreenY, 0);
+
+
 
 			drawEmptyTriangle(pixels, projectedPoint0, projectedPoint1, projectedPoint2);
 			//drawPoint(pixels, projectedPoint0);
