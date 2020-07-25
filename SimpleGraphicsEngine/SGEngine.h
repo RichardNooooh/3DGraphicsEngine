@@ -1,13 +1,15 @@
 #pragma once
 #include "SGWindow.h"
-#include <string>
 #include "SGMath.h";
+#include <vector>
 
 class SGEngine 
 {
 public:
 	SGEngine(std::string title, int width, int height);
 	~SGEngine();
+
+	void addMesh(std::vector<Triangle> mesh);
 
 	int startLoop();
 
@@ -18,6 +20,8 @@ private:
 	void drawPoint(Uint32* pixels, Vector3 p);
 
 	SGWindow *window = nullptr;
+
+	std::vector<std::vector<Triangle>> meshes;
 	
 	int _width;
 	int _height;
