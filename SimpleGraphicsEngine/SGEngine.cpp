@@ -6,7 +6,7 @@
 SGEngine::SGEngine(std::string title, int width, int height) 
 	: _width(width), _height(height)
 {
-	initialize(title);
+	Initialize(title);
 
 }
 
@@ -48,7 +48,7 @@ int SGEngine::startLoop()
 	//main loop
 	while (!window->isClosed())
 	{
-		window->pollEvents();
+		window->PollEvents();
 		//window->clear();
 
 		//Rotation Matrices
@@ -85,7 +85,7 @@ int SGEngine::startLoop()
 
 		theta += 0.05f;
 
-		window->lockFrame(&pixels, &pitch);
+		window->LockFrame(&pixels, &pitch);
 		std::fill_n(pixels, _width * _height, 0); // clears the screen to black
 		for (std::vector<Triangle> mesh : meshes)
 		{
@@ -129,13 +129,13 @@ int SGEngine::startLoop()
 			}
 		}
 
-		window->unlockFrame();
-		window->wait(16); //60fps
+		window->UnlockFrame();
+		window->Wait(16); //60fps
 	}
 	return 0;
 }
 
-void SGEngine::initialize(std::string title)
+void SGEngine::Initialize(std::string title)
 {
 	window = new SGWindow(title, _width, _height);
 }
