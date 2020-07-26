@@ -86,7 +86,7 @@ int SGEngine::startLoop()
 		theta += 0.05f;
 
 		window->lockFrame(&pixels, &pitch);
-		std::fill_n(pixels, _width * _height, 0);
+		std::fill_n(pixels, _width * _height, 0); // clears the screen to black
 		for (std::vector<Triangle> mesh : meshes)
 		{
 			for (Triangle tri : mesh)
