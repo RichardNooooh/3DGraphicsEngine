@@ -36,7 +36,10 @@ struct Vector3
 	Vector3 Matrix44Multiply(Matrix44 matrix) const;
 };
 
-struct Triangle 
+struct Triangle
 {
-	Vector3 points[3];
+	Vector3 _points[3];
+	Vector3* _normal = nullptr; //this feels dangerous, as a user can just arbitrarily change this normal... but it gives better performance? Probably?
+
+	Triangle(Vector3 p0, Vector3 p1, Vector3 p2);
 };

@@ -98,3 +98,14 @@ Vector3 Vector3::Matrix44Multiply(Matrix44 matrix) const
 		<< resultX << ", " << resultY << ", " << resultZ << "\n";*/
 	return Vector3(resultX, resultY, resultZ);
 }
+
+Triangle::Triangle(Vector3 p0, Vector3 p1, Vector3 p2) : _points{p0, p1, p2}
+{
+	Vector3 u = p1 - p0;
+	Vector3 v = p2 - p0;
+	float newX = u.y * v.z - u.z * v.y;
+	float newY = u.z * v.x - u.x * v.z;
+	float newZ = u.x * v.y - u.y * v.x;
+
+	_normal = &Vector3(newX, newY, newZ);
+}
