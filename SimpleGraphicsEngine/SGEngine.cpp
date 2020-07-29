@@ -92,21 +92,21 @@ int SGEngine::startLoop()
 			for (Triangle tri : mesh)
 			{
 				Triangle rotatedTriangle = tri;
-				rotatedTriangle.points[0] = rotatedTriangle.points[0].Matrix44Multiply(generalRotateMatrix);
-				rotatedTriangle.points[1] = rotatedTriangle.points[1].Matrix44Multiply(generalRotateMatrix);
-				rotatedTriangle.points[2] = rotatedTriangle.points[2].Matrix44Multiply(generalRotateMatrix);
+				rotatedTriangle._points[0] = rotatedTriangle._points[0].Matrix44Multiply(generalRotateMatrix);
+				rotatedTriangle._points[1] = rotatedTriangle._points[1].Matrix44Multiply(generalRotateMatrix);
+				rotatedTriangle._points[2] = rotatedTriangle._points[2].Matrix44Multiply(generalRotateMatrix);
 
 
 				Triangle triangleTranslated = rotatedTriangle;
 				//move object forward a tiny bit
-				triangleTranslated.points[0].z -= 2.5f;
-				triangleTranslated.points[1].z -= 2.5f;
-				triangleTranslated.points[2].z -= 2.5f;
+				triangleTranslated._points[0].z -= 2.5f;
+				triangleTranslated._points[1].z -= 2.5f;
+				triangleTranslated._points[2].z -= 2.5f;
 
 				//draw projected triangles
-				Vector3 projectedPoint0 = triangleTranslated.points[0].Matrix44Multiply(perspectiveMatrix);
-				Vector3 projectedPoint1 = triangleTranslated.points[1].Matrix44Multiply(perspectiveMatrix);
-				Vector3 projectedPoint2 = triangleTranslated.points[2].Matrix44Multiply(perspectiveMatrix);
+				Vector3 projectedPoint0 = triangleTranslated._points[0].Matrix44Multiply(perspectiveMatrix);
+				Vector3 projectedPoint1 = triangleTranslated._points[1].Matrix44Multiply(perspectiveMatrix);
+				Vector3 projectedPoint2 = triangleTranslated._points[2].Matrix44Multiply(perspectiveMatrix);
 
 				//move and scale to screen
 				projectedPoint0 = projectedPoint0.Scale(200);
