@@ -33,13 +33,18 @@ struct Vector3
 
 	Vector3 Scale(float c) const;
 
+	static Vector3 Normal(Vector3 v1, Vector3 v2);
+
 	Vector3 Matrix44Multiply(Matrix44 matrix) const;
+
+	float Magnitude() const;
 };
 
 struct Triangle
 {
 	Vector3 _points[3];
-	Vector3* _normal = nullptr; //this feels dangerous, as a user can just arbitrarily change this normal... but it gives better performance? Probably?
+	//Vector3* _normal; //this feels dangerous, as a user can just arbitrarily change this normal... but it gives better performance? Probably?
+
 
 	Triangle(Vector3 p0, Vector3 p1, Vector3 p2);
 };

@@ -82,6 +82,14 @@ Vector3 Vector3::Scale(float c) const
 	return Vector3(c * x, c * y, c * z);
 }
 
+Vector3 Vector3::Normal(Vector3 v1, Vector3 v2)
+{
+	float normX = v1.y * v2.z - v1.z * v2.y;
+	float normY = v1.z * v2.x - v1.x * v2.z;
+	float normZ = v1.x * v2.y - v1.y * v2.x;
+	return Vector3(normX, normY, normZ);
+}
+
 Vector3 Vector3::Matrix44Multiply(Matrix44 matrix) const
 {
 	float resultX = x * matrix.m[0][0] + y * matrix.m[1][0] + z * matrix.m[2][0] + matrix.m[3][0];
@@ -99,13 +107,15 @@ Vector3 Vector3::Matrix44Multiply(Matrix44 matrix) const
 	return Vector3(resultX, resultY, resultZ);
 }
 
+float Vector3::Magnitude() const
+{
+	return sqrtf(x * x + y * y + z * z);
+}
+
 Triangle::Triangle(Vector3 p0, Vector3 p1, Vector3 p2) : _points{p0, p1, p2}
 {
-	Vector3 u = p1 - p0;
-	Vector3 v = p2 - p0;
-	float newX = u.y * v.z - u.z * v.y;
-	float newY = u.z * v.x - u.x * v.z;
-	float newZ = u.x * v.y - u.y * v.x;
-
-	_normal = &Vector3(newX, newY, newZ);
+	//Vector3 u = p1 - p0;
+	//Vector3 v = p2 - p0;
+	//Vector3 normal = Vector3::Normal(u, v);
+	//_normal = &normal.Scale(1 / normal.Magnitude());
 }
