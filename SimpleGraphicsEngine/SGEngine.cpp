@@ -27,7 +27,7 @@ int SGEngine::startLoop()
 	float zFarPlane = 1000.0f;
 	float zNearPlane = 0.1f;
 	static Matrix44 perspectiveMatrix = {};
-	perspectiveMatrix.m[0][0] = (float)_height / (float)_width / tanf(fovAngle / 2);
+	perspectiveMatrix.m[0][0] = 1 / tanf(fovAngle / 2);
 	perspectiveMatrix.m[1][1] = 1 / tanf(fovAngle / 2);
 	perspectiveMatrix.m[2][2] = (zFarPlane + zNearPlane) / (zFarPlane - zNearPlane);
 	perspectiveMatrix.m[3][2] = (2 * zFarPlane * zNearPlane) / (zFarPlane - zNearPlane);
@@ -36,14 +36,6 @@ int SGEngine::startLoop()
 
 	//for rotating the cube;
 	float theta = 0.0f;
-
-	//perspectiveMatrix.m[0][0] = (float)_height / (float)_width / tanf(fovAngle / 2.0f);
-	//perspectiveMatrix.m[1][1] = 1.0f / tanf(fovAngle / 2.0f);
-	//perspectiveMatrix.m[2][2] = (zFarPlane) / (zFarPlane - zNearPlane);
-	//perspectiveMatrix.m[3][2] = (-zFarPlane * zNearPlane) / (zFarPlane - zNearPlane);
-	//perspectiveMatrix.m[2][3] = 1;
-	//perspectiveMatrix.m[3][3] = 0;
-	
 
 	//main loop
 	while (!window->isClosed())
@@ -98,13 +90,12 @@ int SGEngine::startLoop()
 				rotatedTriangle._points[0] = rotatedTriangle._points[0].Matrix44Multiply(generalRotateMatrix);
 				rotatedTriangle._points[1] = rotatedTriangle._points[1].Matrix44Multiply(generalRotateMatrix);
 				rotatedTriangle._points[2] = rotatedTriangle._points[2].Matrix44Multiply(generalRotateMatrix);
-				//rotatedTriangle._normal = &rotatedTriangle._normal->Matrix44Multiply(generalRotateMatrix);
 
 				Triangle triangleTranslated = rotatedTriangle;
 				//move object forward a tiny bit
-				triangleTranslated._points[0].z -= 2.5f;
-				triangleTranslated._points[1].z -= 2.5f;
-				triangleTranslated._points[2].z -= 2.5f;
+				triangleTranslated._points[0].z -= 5.5f;
+				triangleTranslated._points[1].z -= 5.5f;
+				triangleTranslated._points[2].z -= 5.5f;
 				//triangleTranslated._normal->z -= 2.5f;
 
 				//check if visible

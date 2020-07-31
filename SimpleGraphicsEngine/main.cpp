@@ -2,6 +2,7 @@
 //#include <Windows.h>
 
 #include "SGEngine.h"
+#include "SGFileReader.h"
 #undef main
 
 //int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -38,8 +39,16 @@ int main()
 								left1, left2, back1, back2, bottom1, bottom2 };
 
 
-    SGEngine engine("Cube Drawing Test", 800, 600);
-	engine.addMesh(cube);
+	SGFileReader reader;
+	std::vector<Triangle> OLCShip;
+
+	SGEngine engine("Cube Dring Test", 1600, 900);
+	if (reader.ReadOBJFile("OLCShip.obj", &OLCShip))
+		engine.addMesh(OLCShip);
+
+	//engine.addMesh(cube);
+	//engine.addMesh(OLCShip);
+
     engine.startLoop();
     return 0;
 }
