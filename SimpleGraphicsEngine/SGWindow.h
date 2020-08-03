@@ -9,17 +9,17 @@ public:
 	~SGWindow();
 	inline bool isClosed() const { return _closed; };
 
-	void clear() const;
-	void pollEvents();
-	int lockFrame(Uint32** pixels, int* pitch);
-	void unlockFrame();
+	void Clear() const;
+	void PollEvents();
+	int LockFrame(Uint32** pixels, int* pitch);
+	void UnlockFrame();
 	//int updateFrame(Uint32 *pixels);
 	
-	void wait(Uint32 milliseconds);
+	void Wait(Uint32 milliseconds);
 
 
 private:
-	bool initialize();
+	bool Initialize();
 
 	std::string _title = "Default SGWindow";
 	int _width = 600;

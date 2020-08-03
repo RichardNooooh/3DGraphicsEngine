@@ -5,7 +5,7 @@
 SGWindow::SGWindow(const std::string& title, int width, int height) :
 	_title(title), _width(width), _height(height)
 {
-	_closed = !initialize();
+	_closed = !Initialize();
 }
 
 SGWindow::~SGWindow()
@@ -15,13 +15,13 @@ SGWindow::~SGWindow()
 	SDL_Quit();
 }
 
-void SGWindow::clear() const
+void SGWindow::Clear() const
 {
 	//SDL_SetRenderTarget(_renderer, _texture);
 	SDL_RenderClear(_renderer);
 }
 
-void SGWindow::pollEvents()
+void SGWindow::PollEvents()
 {
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) 
@@ -38,7 +38,7 @@ void SGWindow::pollEvents()
 	}
 }
 
-int SGWindow::lockFrame(Uint32 **pixels, int *pitch)
+int SGWindow::LockFrame(Uint32 **pixels, int *pitch)
 {
 	int temp;
 	if (SDL_LockTexture(_texture, NULL, (void**)pixels, pitch) != 0)
@@ -49,7 +49,7 @@ int SGWindow::lockFrame(Uint32 **pixels, int *pitch)
 	return 0;
 }
 
-void SGWindow::unlockFrame()
+void SGWindow::UnlockFrame()
 {
 	SDL_UnlockTexture(_texture);
 	SDL_RenderCopy(_renderer, _texture, NULL, NULL);
@@ -64,13 +64,13 @@ void SGWindow::unlockFrame()
 //	return 0;
 //}
 
-void SGWindow::wait(Uint32 milliseconds)
+void SGWindow::Wait(Uint32 milliseconds)
 {
 	SDL_Delay(milliseconds);
 }
 
 
-bool SGWindow::initialize()
+bool SGWindow::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
