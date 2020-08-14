@@ -27,7 +27,7 @@ int SGEngine::startLoop()
 	float zFarPlane = 1000.0f;
 	float zNearPlane = 0.1f;
 	static Matrix44 perspectiveMatrix = {};
-	perspectiveMatrix.m[0][0] = (float)_height / (float)_width / tanf(fovAngle / 2);
+	perspectiveMatrix.m[0][0] = 1 / tanf(fovAngle / 2);
 	perspectiveMatrix.m[1][1] = 1 / tanf(fovAngle / 2);
 	perspectiveMatrix.m[2][2] = (zFarPlane + zNearPlane) / (zFarPlane - zNearPlane);
 	perspectiveMatrix.m[3][2] = (2 * zFarPlane * zNearPlane) / (zFarPlane - zNearPlane);
@@ -36,14 +36,6 @@ int SGEngine::startLoop()
 
 	//for rotating the cube;
 	float theta = 0.0f;
-
-	//perspectiveMatrix.m[0][0] = (float)_height / (float)_width / tanf(fovAngle / 2.0f);
-	//perspectiveMatrix.m[1][1] = 1.0f / tanf(fovAngle / 2.0f);
-	//perspectiveMatrix.m[2][2] = (zFarPlane) / (zFarPlane - zNearPlane);
-	//perspectiveMatrix.m[3][2] = (-zFarPlane * zNearPlane) / (zFarPlane - zNearPlane);
-	//perspectiveMatrix.m[2][3] = 1;
-	//perspectiveMatrix.m[3][3] = 0;
-	
 
 	//main loop
 	while (!window->isClosed())
@@ -70,20 +62,10 @@ int SGEngine::startLoop()
 
 		Matrix44 generalRotateMatrix = rotateMatrixZ * rotateMatrixX;
 
-		//std::cout << "Matrix is: ";
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	std::cout << "[ ";
-		//	for (int j = 0; j < 4; j++)
-		//		std::cout << generalRotateMatrix.m[i][j] << " ";
-		//	std::cout << "]\n";
-		//}
-		//std::cout << "\n";
-
 		Uint32* pixels = { 0 };
 		int pitch = 0;
 
-		theta += 0.0125f;
+		theta += 0.025f;
 
 		window->LockFrame(&pixels, &pitch);
 		std::fill_n(pixels, _width * _height, 0); // clears the screen to black
@@ -98,7 +80,6 @@ int SGEngine::startLoop()
 				rotatedTriangle._points[0] = rotatedTriangle._points[0].Matrix44Multiply(generalRotateMatrix);
 				rotatedTriangle._points[1] = rotatedTriangle._points[1].Matrix44Multiply(generalRotateMatrix);
 				rotatedTriangle._points[2] = rotatedTriangle._points[2].Matrix44Multiply(generalRotateMatrix);
-				//rotatedTriangle._normal = &rotatedTriangle._normal->Matrix44Multiply(generalRotateMatrix);
 
 				Triangle triangleTranslated = rotatedTriangle;
 				//move object forward a tiny bit
@@ -164,6 +145,36 @@ void SGEngine::drawEmptyTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3
 	drawLine(pixels, p0, p1);
 	drawLine(pixels, p1, p2);
 	drawLine(pixels, p2, p0);
+}
+
+void SGEngine::drawTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3 p2, Uint32 color)
+{
+	int x0 = p0.x; int x1 = p1.x;
+	int y0 = p0.y; int y1 = p1.y;
+
+	int dx = abs(x1 - x0);
+	int dy = -abs(y1 - y0);
+
+	int sx = x0 < x1 ? 1 : -1;
+	int sy = y0 < y1 ? 1 : -1;
+	int err = dx + dy;
+
+	while (x0 != x1 || y0 != y1)
+	{
+		if (x0 < _width && x0 >= 0 && y0 < _height && y0 >= 0)
+			pixels[x0 + _width * y0] = 0xFFFFFFFF;
+		int e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			err += dy;
+			x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
 }
 
 //Bresenham's Algoirthm from Wikipedia

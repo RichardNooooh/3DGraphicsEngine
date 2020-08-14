@@ -159,11 +159,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SGEngine.cpp" />
+    <ClCompile Include="SGFileReader.cpp" />
     <ClCompile Include="SGMath.cpp" />
     <ClCompile Include="SGWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SGEngine.h" />
+    <ClInclude Include="SGFileReader.h" />
     <ClInclude Include="SGMath.h" />
     <ClInclude Include="SGWindow.h" />
   </ItemGroup>
