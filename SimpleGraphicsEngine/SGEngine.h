@@ -16,6 +16,7 @@ public:
 private:
 	void Initialize(std::string title);
 	void drawEmptyTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3 p2);
+	void drawTriangle(Uint32* pixels, Vector3 p0, Vector3 p1, Vector3 p2, Uint32 color);
 	void drawLine(Uint32* pixels, Vector3 p0, Vector3 p1);
 	void drawPoint(Uint32* pixels, Vector3 p);
 

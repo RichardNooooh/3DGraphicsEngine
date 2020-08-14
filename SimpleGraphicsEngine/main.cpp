@@ -42,11 +42,11 @@ int main()
 	SGFileReader reader;
 	std::vector<Triangle> OLCShip;
 
-	SGEngine engine("Cube Dring Test", 1600, 900);
-	if (reader.ReadOBJFile("OLCShip.obj", &OLCShip))
-		engine.addMesh(OLCShip);
+	SGEngine engine("Cube Drawing Test", 800, 600);
+	/*if (reader.ReadOBJFile("OLCShip.obj", &OLCShip))
+		engine.addMesh(OLCShip);*/
 
-	//engine.addMesh(cube);
+	engine.addMesh(cube);
 	//engine.addMesh(OLCShip);
 
     engine.startLoop();
